@@ -11,6 +11,7 @@ from django.db.models import get_model
 
 from baseconv import b62
 import conf
+from exceptions import InvalidShortId
 
 
 def _get_prefix(obj):
@@ -21,17 +22,21 @@ def _get_prefix(obj):
 
 def _get_model(short):
     i = 0
-    while True:
+    while i < len(short):
         try:
             return conf.MODELS[short[:i]], short[i:]
         except KeyError:
             i += 1
+    raise InvalidShortId, "No prefix found for %s." % short
 
 
 def real_url(short):
     model, b62pk = _get_model(short)
     model = get_model(*model.split("."))
-    obj = model.objects.get(pk = b62.to_decimal(b62pk))
+    try:
+        obj = model.objects.get(pk = b62.to_decimal(b62pk))
+    except model.DoesNotExist, e:
+        raise InvalidShortId, str(e)
     return obj.get_absolute_url()
 
 
