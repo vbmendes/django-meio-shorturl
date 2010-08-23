@@ -13,8 +13,9 @@ import conf
 
 urlpatterns = patterns('', 
     url(
-        regex = '^(?P<shortid>\w+)$',
+        regex = r'^(?P<shortid>\w+)$',
         view  = 'shorturl.views.redirect',
+        name  = 'shorturl__redirect', 
     ),
 )
 

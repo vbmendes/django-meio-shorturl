@@ -19,3 +19,11 @@ def set_prefixes(models):
 
 set_prefixes(MODELS)
 
+def get_base_url():
+    if hasattr(settings, 'SHORTURL_BASE_URL'):
+        return settings.SHORTURL_BASE_URL
+    if not globals().has_key('_BASE_URL'):
+        from django.contrib.sites.models import Site
+        globals()['_BASE_URL'] = 'http://' + Site.objects.get_current().domain
+    return globals()['_BASE_URL']
+

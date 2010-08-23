@@ -6,7 +6,10 @@ Created on 23/08/2010
 @author: vbmendes
 """
 
+import urlparse
+
 from django.contrib.sites.models import Site
+from django.core.urlresolvers import reverse
 from django.db.models import get_model
 
 from baseconv import b62
@@ -37,11 +40,14 @@ def real_url(short):
         obj = model.objects.get(pk = b62.to_decimal(b62pk))
     except model.DoesNotExist, e:
         raise InvalidShortId, str(e)
-    return obj.get_absolute_url()
+    return urlparse.urljoin(conf.get_base_url(), obj.get_absolute_url())
 
 
 def shorten(obj):
     prefix = _get_prefix(obj)
-    return 'http://' + Site.objects.get_current().domain + \
-        '/' + prefix + b62.from_decimal(obj.pk)
+    shortid = prefix + b62.from_decimal(obj.pk)
+    return urlparse.urljoin(
+        conf.get_base_url(),
+        reverse('shorturl__redirect', args=(shortid,))
+    )
 

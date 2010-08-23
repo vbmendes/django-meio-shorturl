@@ -9,8 +9,21 @@ class URL(models.Model):
         app_label = 'shorturl'
 
     def __unicode__(self):
-        return self.name
+        return self.url
 
     def get_absolute_url(self):
         return self.url
+
+
+class Person(models.Model):
+    name = models.CharField(max_length = 100)
+
+    class Meta:
+        app_label = 'shorturl'
+
+    def __unicode__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return u'/people/%d/' % (self.pk)
 

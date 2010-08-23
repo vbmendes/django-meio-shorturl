@@ -1,5 +1,4 @@
-[
-{
+[{
   "model": "shorturl.URL",
   "pk": 123,
   "fields": {
@@ -11,6 +10,13 @@
   "pk": 321,
   "fields": {
     "url": "http://test.com/"
+  }
+},
+{
+  "model": "shorturl.Person",
+  "pk": 234,
+  "fields": {
+    "name": "vbmendes"
   }
 }]
 
