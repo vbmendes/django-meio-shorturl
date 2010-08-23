@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-import baseconv
+from shorturl import baseconv
 
 class BaseRangeTests(TestCase):
 
