@@ -10,7 +10,7 @@
   "model": "shorturl.URL",
   "pk": 321,
   "fields": {
-    "url": "http://globo.com/"
+    "url": "http://test.com/"
   }
 }]
 

@@ -14,5 +14,8 @@ if not MODELS:
     raise ImproperlyConfigured, "In order to use django-shorturl you" \
         "must provide SHORTURL_MODELS setting."
 
-PREFIXES = dict([(v, k) for k, v in MODELS.items()])
+def set_prefixes(models):
+    globals()['PREFIXES'] = dict([(v, k) for k, v in models.items()])
+
+set_prefixes(MODELS)
 
