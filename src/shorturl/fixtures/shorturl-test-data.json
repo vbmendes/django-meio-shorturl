@@ -1,0 +1,16 @@
+[
+{
+  "model": "shorturl.URL",
+  "pk": 123,
+  "fields": {
+    "url": "http://google.com/"
+  }
+},
+{
+  "model": "shorturl.URL",
+  "pk": 321,
+  "fields": {
+    "url": "http://globo.com/"
+  }
+}]
+

@@ -1,5 +1,13 @@
 DATABASE_ENGINE = 'sqlite3'
 DATABASE_NAME = '/tmp/shorturl.db'
-INSTALLED_APPS = ['shorturl']
+INSTALLED_APPS = (
+    'django.contrib.sites',
+    'shorturl',
+)
 ROOT_URLCONF = ['shorturl.urls']
+SITE_ID = 1
+
+SHORTURL_MODELS = {
+    '': 'shorturl.URL',
+}
 
