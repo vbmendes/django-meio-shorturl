@@ -1,5 +1,5 @@
-django-shorturl
-===============
+django-meio-shorturl
+====================
 
 A custom URL shortening app for django. It is based on django-shorturls
 and I am building this project just for study purposes.

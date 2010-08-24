@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = "django-shorturl",
+    name = "django-meio-shorturl",
     version = "1.0",
-    url = 'http://github.com/vbmendes/django-shorturl',
+    url = 'http://github.com/vbmendes/django-meio-shorturl',
     license = 'BSD',
     description = "Short URL handling in Django apps.",
     author = 'Vinicius Mendes',
