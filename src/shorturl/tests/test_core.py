@@ -3,6 +3,7 @@ from django.test import TestCase
 
 from shorturl import conf
 from shorturl.core import real_url, shorten
+from shorturl.exceptions import NoShortIdForObject
 
 from models import URL, Person
 
@@ -33,6 +34,13 @@ class CoreModelTest(TestCase):
         self.assertEqual(
             shorten(URL.objects.get(pk=321)),
             'http://example.com/5B'
+        )
+
+    def test_short_invalid_model(self):
+        self.assertRaises(
+            NoShortIdForObject,
+            shorten,
+            Person.objects.get(pk = 234)
         )
 
     def test_real_url_1z(self):

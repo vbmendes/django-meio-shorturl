@@ -14,13 +14,17 @@ from django.db.models import get_model
 
 from baseconv import b62
 import conf
-from exceptions import InvalidShortId
+from exceptions import InvalidShortId, NoShortIdForObject
 
 
 def _get_prefix(obj):
     model = obj.__class__
     model_name = model._meta.app_label + '.' + model.__name__
-    return conf.PREFIXES[model_name]
+    try:
+        return conf.PREFIXES[model_name]
+    except KeyError:
+        raise NoShortIdForObject, "Model %s not referenced in " \
+            "SHORTURL_MODELS setting." % model_name
 
 
 def _get_model(short):

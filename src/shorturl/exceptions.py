@@ -10,3 +10,7 @@ Created on 23/08/2010
 class InvalidShortId(ValueError):
     pass
 
+
+class NoShortIdForObject(TypeError):
+    pass
+
