@@ -3,3 +3,60 @@ django-meio-shorturl
 
 A custom URL shortening app for django. It is based on django-shorturls
 and I am building this project just for study purposes.
+
+Instalation
+-----------
+
+Here is the steps to install the django-meio-shorturl::
+
+1. Define prefixes for your URLs in your settings::
+
+        SHORTURL_MODELS = {
+            'u': 'auth.User',
+            'p': 'yourapp.Person',
+        }
+
+    The keys are prefixes for the shorturls generated for the objects of
+    the model referenced by the value.
+
+    The value must be a string representing a model in the well known form
+    `app_label.ModelName`.
+
+    Every model referenced in this setting must have a `get_absolute_url()`
+    method. Otherwise it won't be able to revert the short url.
+
+2. Add a rule in your URLconf to include the shorturl.urls::
+
+        ('^s', include('shorturls.urls')),
+
+    It will point the URL `/s<shortid>` to the redirect view.
+
+3. Use it.
+
+Use cases
+---------
+
+You can use this app in 2 ways::
+
+1. Get short urls for objects::
+
+        from shorturl.core import shorten
+
+        shorten(obj)
+
+    It will generate a short url for the object if it's model is referenced
+    in the `SHORTURL_MODELS` setting. Otherwise, it will raise a
+    `NoShortIdForObject` exception.
+
+2. Get real url for a shortened one::
+
+        from shorurl.core import real_url
+
+        real_url('u1z')
+
+    It will try to find a prefix in `SHORTURL_MODELS` that matches the
+    start of the parameter (`'u1z'`) in this case the `'u'` and will
+    get the decimal value of the base62 number `'1z'`. And redirect to the
+    value returned by the `get_absolute_url()` method of the instance of
+    the `auth.User` model wich has `pk == b62.to_decimal('1z')`.
+
