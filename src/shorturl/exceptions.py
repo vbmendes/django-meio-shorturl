@@ -7,10 +7,14 @@ Created on 23/08/2010
 """
 
 
-class InvalidShortId(ValueError):
+class ShortURLException(Exception):
     pass
 
 
-class NoShortIdForObject(TypeError):
+class InvalidShortId(ValueError, ShortURLException):
+    pass
+
+
+class NoShortIdForObject(TypeError, ShortURLException):
     pass
 
