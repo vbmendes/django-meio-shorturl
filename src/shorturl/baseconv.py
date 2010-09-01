@@ -71,9 +71,8 @@ class BaseConverter(object):
         for base_range in self.ranges:
             try:
                 return base_range.value_of(digit) + current_base
-            except ValueError:
-                pass
-            current_base += len(base_range)
+            except ValueError: # if the digit is not in the range
+                current_base += len(base_range)
         raise ValueError, "This digit is not contained in any of %s digits" % repr(self)
         
     def digit_for(self, value):
@@ -81,9 +80,9 @@ class BaseConverter(object):
         for base_range in self.ranges:
             try:
                 return base_range.digit_for(value - current_base)
-            except ValueError:
-                pass
-            current_base += len(base_range)
+            except ValueError: # if the value cannot be converted to
+                               # a digit in the range
+                current_base += len(base_range)
         raise ValueError, "This value cannot be converted to a single digit"
 
 bin = BaseConverter("0-1")
