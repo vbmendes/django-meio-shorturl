@@ -27,7 +27,7 @@ def _get_prefix(obj):
             "SHORTURL_MODELS setting." % model_name
 
 
-def _get_model(short):
+def _get_model_and_b62pk(short):
     i = 0
     while i < len(short):
         try:
@@ -38,7 +38,7 @@ def _get_model(short):
 
 
 def real_url(short):
-    model, b62pk = _get_model(short)
+    model, b62pk = _get_model_and_b62pk(short)
     model = get_model(*model.split("."))
     try:
         obj = model.objects.get(pk = b62.to_decimal(b62pk))
