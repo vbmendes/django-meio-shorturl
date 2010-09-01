@@ -38,13 +38,16 @@ def _get_model_and_b62pk(short):
 
 
 def real_url(short):
-    model, b62pk = _get_model_and_b62pk(short)
-    model = get_model(*model.split("."))
+    model_name, b62pk = _get_model_and_b62pk(short)
+    model = get_model(*model_name.split("."))
     try:
         obj = model.objects.get(pk = b62.to_decimal(b62pk))
     except model.DoesNotExist, e:
         raise InvalidShortId, str(e)
-    return urlparse.urljoin(conf.get_base_url(), obj.get_absolute_url())
+    return urlparse.urljoin(
+        conf.get_base_url(),
+        obj.get_absolute_url()
+    )
 
 
 def shorten(obj):
